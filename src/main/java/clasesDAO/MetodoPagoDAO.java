@@ -8,15 +8,17 @@ package clasesDAO;
  *
  * @author wilber
  */
+import db.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class MetodoPagoDAO {
-    private Connection connection; // Debes establecer la conexión a la base de datos
 
-    public static void insertarMetodoPago(Connection connection, String tipo_pago, String descripcion) {
+    public void insertarMetodoPago(String tipo_pago, String descripcion) {
         try {
+            Conexion cn = new Conexion();
+            Connection connection = cn.conectar();
             // Preparar la sentencia SQL para la inserción
             String sql = "INSERT INTO nombre_de_la_tabla (tipo_pago, descripcion) VALUES (?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

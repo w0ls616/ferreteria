@@ -4,6 +4,7 @@
  */
 package clasesDAO;
 
+import db.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -13,10 +14,11 @@ import java.sql.SQLException;
  */
 public class EmpleadoDAO {
 
-    private Connection connection; // Debes establecer la conexión a la base de datos
 
-    public static void insertarEmpleado(Connection connection, int idEmpleado, String nombre, String apellido, String genero, String correo, String dui, String direccion, String telefono) {
+    public void insertarEmpleado(int idEmpleado, String nombre, String apellido, String genero, String correo, String dui, String direccion, String telefono) {
         try {
+            Conexion cn = new Conexion();
+            Connection connection = cn.conectar();
             // Preparar la sentencia SQL para la inserción
             String sql = "INSERT INTO empleado (idEmpleado, nombre, apellido, genero, correo, dui, direccion, telefono) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

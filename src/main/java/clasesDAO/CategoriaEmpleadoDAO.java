@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package clasesDAO;
+import db.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -13,8 +14,11 @@ import java.sql.SQLException;
 public class CategoriaEmpleadoDAO {
     private Connection connection; // Debes establecer la conexión a la base de datos
 
-    public static void insertarCategoriaEmpleado(Connection connection, int idCategoriaEmpleado, String cargo, String descripcion, double sueldo) {
+    public void insertarCategoriaEmpleado(int idCategoriaEmpleado, String cargo, String descripcion, double sueldo) {
         try {
+            Conexion cn = new Conexion();
+            Connection connection = cn.conectar();
+            
             // Preparar la sentencia SQL para la inserción
             String sql = "INSERT INTO nombre_de_la_tabla (idCategoriaEmpleado, cargo, descripcion, sueldo) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

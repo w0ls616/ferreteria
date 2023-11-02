@@ -4,15 +4,17 @@
  */
 package clasesDAO;
 
+import db.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CategoriaProductoDAO {
-    private Connection connection; // Debes establecer la conexión a la base de datos
-
-    public static void insertarCategoriaProducto(Connection connection, String nombre, String descripcion) {
+    public void insertarCategoriaProducto(String nombre, String descripcion) {
         try {
+            Conexion cn = new Conexion();
+            Connection connection = cn.conectar();
+            
             // Preparar la sentencia SQL para la inserción
             String sql = "INSERT INTO nombre_de_la_tabla (nombre, descripcion) VALUES (?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

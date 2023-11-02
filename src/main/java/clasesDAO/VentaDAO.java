@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package clasesDAO;
+import db.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -11,10 +12,11 @@ import java.sql.SQLException;
  * @author wilber
  */
 public class VentaDAO {
-    private Connection connection; // Debes establecer la conexión a la base de datos
 
-    public static void insertarVenta(Connection connection, int idEmpleado, int idMetodoPago, int idCliente, double total) {
+    public void insertarVenta(int idEmpleado, int idMetodoPago, int idCliente, double total) {
         try {
+            Conexion cn = new Conexion();
+            Connection connection = cn.conectar();
             // Preparar la sentencia SQL para la inserción
             String sql = "INSERT INTO nombre_de_la_tabla (idEmpleado, idMetodoPago, idCliente, total) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

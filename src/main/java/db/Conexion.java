@@ -1,9 +1,8 @@
-package db;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
+package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,40 +16,39 @@ import java.util.logging.Logger;
  *
  * @author usuario
  */
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 public class Conexion {
-    private String bd = "nombreBase";
-    private String url = "jdbc:mysql://localhost:3306/";
-    private String user = "root";
-    private String password = "";
-    private String driver = "com.mysql.jdbc.Driver";
-    private Connection connection;
-
-    public Conexion() {
+    String bd = "ferreteria";
+    String url = "jdbc:mysql://localhost:3306/";
+    String user = "root";
+    String password = "";
+    String driver = "com.mysql.jdbc.Driver";
+    Connection cx;
+    
+    public Conexion(){    
     }
-
+    
     public Connection conectar() {
         try {
             Class.forName(driver);
-            connection = DriverManager.getConnection(url + bd, user, password);
-            System.out.println("Conexión exitosa a la base de datos.");
+            cx = DriverManager.getConnection(url + bd, user, password);
+            System.out.println("Se conecto");
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Error al conectar a la base de datos: " + ex.getMessage());
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return connection;
+        return cx;
     }
 
     public void desconectar() {
         try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-                System.out.println("Conexión cerrada.");
-            }
+            cx.close();
         } catch (SQLException ex) {
-            System.out.println("Error al cerrar la conexión: " + ex.getMessage());
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public ResultSet ejecutarConsulta(String consulta) throws SQLException {
+        Statement cons = this.cx.createStatement();
+        return cons.executeQuery(consulta);
     }
 }

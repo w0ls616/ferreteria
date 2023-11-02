@@ -8,15 +8,17 @@ package clasesDAO;
  *
  * @author wilber
  */
+import db.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class RegistroCajaDAO {
-    private Connection connection; // Debes establecer la conexión a la base de datos
 
-    public static void insertarRegistroCaja(Connection connection, String fecha, double montoInicial, double montoFinal) {
+    public void insertarRegistroCaja(String fecha, double montoInicial, double montoFinal) {
         try {
+            Conexion cn = new Conexion();
+            Connection connection = cn.conectar();
             // Preparar la sentencia SQL para la inserción
             String sql = "INSERT INTO nombre_de_la_tabla (fecha, monto_inicial, monto_final) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

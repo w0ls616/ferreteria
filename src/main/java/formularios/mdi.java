@@ -40,16 +40,16 @@ public class mdi extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 734, Short.MAX_VALUE)
+            .addGap(0, 1037, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
         );
 
         jMenu1.setText("File");
 
-        jMenuItem1.setText("Gerente");
+        jMenuItem1.setText("Login");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -86,9 +86,11 @@ public class mdi extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        frm1 frm1 = new frm1();
-        this.jDesktopPane1.add(frm1);
-        frm1.setVisible(true);
+        frmLogin frmLoginObj = new frmLogin();
+        this.jDesktopPane1.add(frmLoginObj);
+        //Se le pasa a la variable pane el jDesktopPane1
+        frmLoginObj.pane = this.jDesktopPane1;
+        frmLoginObj.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
