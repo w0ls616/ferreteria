@@ -7,6 +7,7 @@ package clasesDAO;
 import db.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 /**
  *
@@ -46,6 +47,46 @@ public class EmpleadoDAO {
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public boolean inicioSesion(String nombre, String password){
+        try {
+            Conexion cn = new Conexion();
+            Connection connection = cn.conectar();
+
+            // Preparar la sentencia SQL para la consulta
+            String sql = "SELECT e.nombre, p.password_empleado "
+                    + "FROM empleado e "
+                    + "JOIN passwords p ON e.id_empleado = p.id_empleado "
+                    + "WHERE e.nombre = ? AND p.password_empleado = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            // Establecer los valores de los parámetros
+            preparedStatement.setString(1, nombre);
+            preparedStatement.setString(2, password);
+
+            // Ejecutar la consulta
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Verificar si la consulta devuelve algún resultado
+            boolean inicioSesionExitoso = resultSet.next();
+
+            // Mostrar el resultado
+            if (inicioSesionExitoso) {
+                System.out.println("Inicio de sesión exitoso.");
+            } else {
+                System.out.println("Inicio de sesión fallido. Verifica tus credenciales.");
+            }
+
+            // Cerrar la conexión, el PreparedStatement y el ResultSet
+            resultSet.close();
+            preparedStatement.close();
+
+            return inicioSesionExitoso;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Manejo de excepciones
         }
     }
 }

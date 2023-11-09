@@ -40,6 +40,11 @@ public class frmLogin extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
 
         btn_LoginEmp1.setText("Inventario Empleado");
+        btn_LoginEmp1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_LoginEmp1ActionPerformed(evt);
+            }
+        });
 
         btn_LoginEmp2.setText("Caja empleado");
         btn_LoginEmp2.addActionListener(new java.awt.event.ActionListener() {
@@ -132,17 +137,36 @@ public class frmLogin extends javax.swing.JInternalFrame {
 
     private void btn_LoginEmp2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginEmp2ActionPerformed
         // TODO add your handling code here:
+        frmSesion frmSesionObj = new frmSesion();
+        this.pane.add(frmSesionObj);
+        frmSesionObj.setVisible(true);
+        frmSesionObj.pane = this.pane;
+        frmSesionObj.setTipeUser("CajaEmp");
+        //Se destruye este formulario, esto para evitar problemas a futuro lo de regresar a un formulario
+        this.dispose();
     }//GEN-LAST:event_btn_LoginEmp2ActionPerformed
 
     private void btn_LoginAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginAdmActionPerformed
         // TODO add your handling code here:
-        frm1 frm1Obj = new frm1();
-        this.pane.add(frm1Obj);
-        frm1Obj.setVisible(true);
+        frmSesion frmSesionObj = new frmSesion();
+        this.pane.add(frmSesionObj);
+        frmSesionObj.setVisible(true);
+        frmSesionObj.pane = this.pane;
+        frmSesionObj.setTipeUser("Adm");
         //Se destruye este formulario, esto para evitar problemas a futuro lo de regresar a un formulario
         this.dispose();
-
     }//GEN-LAST:event_btn_LoginAdmActionPerformed
+
+    private void btn_LoginEmp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginEmp1ActionPerformed
+        // TODO add your handling code here:
+        frmSesion frmSesionObj = new frmSesion();
+        this.pane.add(frmSesionObj);
+        frmSesionObj.setVisible(true);
+        frmSesionObj.pane = this.pane;
+        frmSesionObj.setTipeUser("InvEmp");
+        //Se destruye este formulario, esto para evitar problemas a futuro lo de regresar a un formulario
+        this.dispose();
+    }//GEN-LAST:event_btn_LoginEmp1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

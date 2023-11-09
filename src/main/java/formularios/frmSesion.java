@@ -4,6 +4,10 @@
  */
 package formularios;
 
+import clasesDAO.EmpleadoDAO;
+import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 85720
@@ -13,9 +17,17 @@ public class frmSesion extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmSesion
      */
+    
+    JDesktopPane pane;
+    
+    private String tipeUser = "";
+
+
+    
     public frmSesion() {
         initComponents();
     }
+    EmpleadoDAO empleadoDAO = new EmpleadoDAO();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,22 +40,30 @@ public class frmSesion extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nombreTxt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        passwordTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setText("Ingrese Nombre:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nombreTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nombreTxtActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Ingrese Código:");
+        jLabel2.setText("Contraseña:");
 
         jLabel3.setText("Inicio de sesión");
+
+        jButton1.setText("Iniciar Sesión");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -56,15 +76,17 @@ public class frmSesion extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3)
                         .addGap(388, 388, 388))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(268, 268, 268))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -74,13 +96,15 @@ public class frmSesion extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(121, 121, 121))
+                    .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(jButton1)
+                .addGap(65, 65, 65))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -103,17 +127,48 @@ public class frmSesion extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nombreTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nombreTxtActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (tipeUser == "Adm"){
+            if (empleadoDAO.inicioSesion(nombreTxt.getText(), passwordTxt.getText())){
+                JOptionPane.showMessageDialog(null, "INICIO DE SESIÖN EXITOSO");
+                frmFuncionesAdmin frmFuncionesAdminObj = new frmFuncionesAdmin();
+                this.pane.add(frmFuncionesAdminObj);
+                frmFuncionesAdminObj.setVisible(true);
+                this.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "CREDENCIALES INVALIDAS");
+            }
+        }
+        else if (tipeUser == "CajaEmp"){
+            
+        }
+        else if (tipeUser == "InvEmp"){
+            
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public String getTipeUser() {
+        return tipeUser;
+    }
+
+    public void setTipeUser(String tipeUser) {
+        this.tipeUser = tipeUser;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField nombreTxt;
+    private javax.swing.JTextField passwordTxt;
     // End of variables declaration//GEN-END:variables
 }
